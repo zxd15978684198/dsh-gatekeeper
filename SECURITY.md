@@ -1,5 +1,7 @@
 # Security
 
+**English** · [简体中文](SECURITY.zh-CN.md)
+
 ## What this plugin can do to your machine
 
 Gatekeeper generates configuration and, when you ask it to, runs commands. Both

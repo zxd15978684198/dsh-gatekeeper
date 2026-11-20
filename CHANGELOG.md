@@ -1,5 +1,7 @@
 # Changelog
 
+**English** · [简体中文](CHANGELOG.zh-CN.md)
+
 Versions before 0.10.0 are not listed: the plugin was private until 0.11.0, and
 the pre-0.10 history is a sequence of internal rewrites rather than releases.
 
