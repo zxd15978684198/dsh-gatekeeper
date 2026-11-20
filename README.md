@@ -2,6 +2,8 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
+📖 [Illustrated guide](docs/illustrated-guide.md) — what the panel, the audit report and the composer chip actually look like.
+
 A Python project quality gate for DSH: it reads the project, generates the
 configuration a gate needs, and runs the same gate locally and in CI. Chinese
 name: 「门禁」. Machine identifier: `gatekeeper`.

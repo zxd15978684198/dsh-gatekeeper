@@ -2,6 +2,8 @@
 
 [English](README.md) · **简体中文**
 
+📖 [图文说明](docs/illustrated-guide.md) —— 面板、体检结果与技能包胶囊长什么样。
+
 一个 DSH 插件：读 Python 项目、生成门禁配置、在本地与 CI 用同一套定义执行门禁。机器标识 `gatekeeper`，界面上叫 **Gatekeeper**，中文名「门禁」。
 
 三个工具、一个左侧面板、一个输入框下方的技能包胶囊，一起回答「这个 Python 项目要什么」；当项目不是 uv 项目时，它们会**拒绝**回答。
