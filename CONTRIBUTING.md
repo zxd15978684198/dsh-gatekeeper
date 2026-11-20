@@ -1,7 +1,5 @@
 # Contributing
 
-**English** · [简体中文](CONTRIBUTING.zh-CN.md)
-
 ## Getting a dev copy running
 
 Gatekeeper lives as a `link:` dependency of a DSH profile, so the plugin you edit
