@@ -1,0 +1,20 @@
+# This bundle layer inserts the gatekeeper plugin process-wide, so every
+# agent preset gets the `py-audit` / `py-run` / `py-scaffold` tools without
+# declaring anything.
+#
+# Do NOT also add a `gatekeeper` row to a preset. DSH registers tools by
+# name and the second registration fails with
+# `tool "py-audit" is already registered in this scope`. To keep the tools out of
+# a composition, override this row by id in a later patch layer (`- id:
+# gatekeeper` with `disabled: true`) instead of duplicating it.
+#
+# The entry name is PATH-RELATIVE on purpose. DSH anchors a relative `name:` to
+# the directory of the patch file that declared it, so this row always loads this
+# bundle's own `index.js` — whatever the package folder happens to be called. A
+# bare package name would instead have to match the installed folder name, which
+# couples this file to the directory name a local `file:` install happens to use.
+# Keep this relative.
+
+- insert:
+    - id: gatekeeper
+      name: './index.js'

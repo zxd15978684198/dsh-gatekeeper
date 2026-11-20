@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- An uv hexagon carrying a pass mark: the plugin is a set of quality gates,
+       not a build tool, and it says "no" more often than it says "yes". -->
+  <path d="M12 3.2 19.2 7.3v7.4L12 18.8 4.8 14.7V7.3Z" />
+  <path d="M8.6 11.3l2.4 2.4 4.4-4.7" />
+</svg>

@@ -1,0 +1,1248 @@
+{
+  "plugin": {
+    "name": "gatekeeper",
+    "version": "0.9.2",
+    "schema": true,
+    "degraded": false
+  },
+  "root": "E:\\projects\\demo",
+  "source": "session",
+  "recordedAt": "2026-10-23T04:00:00.000Z",
+  "detection": {
+    "ok": true,
+    "root": "E:\\projects\\demo",
+    "detectedAt": "2026-11-01T11:45:26.655Z",
+    "packageManager": "uv",
+    "foreignLockfiles": [],
+    "hasPyproject": true,
+    "pythonVersion": "3.13",
+    "pythonVersionSource": ".python-version",
+    "requiresPython": ">=3.13,<3.14",
+    "pinnedVersion": "3.13",
+    "hasUvLock": true,
+    "hasDependencyGroups": true,
+    "hasLegacyDevDependencies": false,
+    "linters": {
+      "ruff": true,
+      "mypy": true,
+      "ty": false,
+      "pytest": true,
+      "black": false,
+      "preCommit": true
+    },
+    "linterConfigFiles": [
+      ".pre-commit-config.yaml"
+    ],
+    "workflows": [
+      {
+        "file": ".github/workflows/ci.yml",
+        "usesSetupUv": true,
+        "usesSetupPython": false,
+        "usesNodeToolchain": false,
+        "triggersPush": true,
+        "triggersPullRequest": false
+      }
+    ],
+    "hasWorkflowDir": true,
+    "blockers": [],
+    "confidence": "high",
+    "notes": [
+      "A src/ directory is present: the pytest snippet points testpaths at src/tests, adjust if your tests live elsewhere."
+    ],
+    "markers": {
+      "pyproject": true,
+      "requirementsTxt": false,
+      "setupPy": false,
+      "setupCfg": false,
+      "srcDir": true,
+      "testsDir": false,
+      "testDirs": [],
+      "toxIni": false,
+      "noxfile": false,
+      "dockerfile": false,
+      "composeFile": false
+    },
+    "workspace": {
+      "isWorkspace": false,
+      "members": [],
+      "sources": []
+    },
+    "buildBackend": "hatchling",
+    "mypy": {
+      "configured": true,
+      "hasConfigTable": true
+    },
+    "secrets": {
+      "baseline": true,
+      "helper": true
+    },
+    "validator": {
+      "script": false,
+      "manifest": false
+    },
+    "container": {
+      "reportScript": false,
+      "imageLimit": null
+    },
+    "gitHooks": {
+      "installed": false,
+      "pointsToPrek": false
+    }
+  },
+  "settings": {
+    "defaultPythonVersion": "3.13",
+    "matrixPythonVersions": "",
+    "testPaths": "src/tests",
+    "includeSecurityGate": true,
+    "includeIntegrationGate": false,
+    "tools": {
+      "audit": true,
+      "scaffold": true,
+      "run": true
+    }
+  },
+  "topics": [
+    {
+      "topic": "uv-basics",
+      "file": "skills/uv/SKILL.md",
+      "title": "uv — the basics",
+      "upstream": "astral-sh/claude-code-plugins",
+      "bytes": 3952
+    },
+    {
+      "topic": "uv-commands",
+      "file": "skills/modern-python/references/uv-commands.md",
+      "title": "uv commands",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 5329
+    },
+    {
+      "topic": "pyproject",
+      "file": "skills/modern-python/references/pyproject.md",
+      "title": "pyproject.toml configuration",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 14202
+    },
+    {
+      "topic": "ruff-config",
+      "file": "skills/modern-python/references/ruff-config.md",
+      "title": "Ruff configuration",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 10964
+    },
+    {
+      "topic": "testing",
+      "file": "skills/modern-python/references/testing.md",
+      "title": "Testing with pytest",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 8900
+    },
+    {
+      "topic": "migration",
+      "file": "skills/modern-python/references/migration-checklist.md",
+      "title": "Migrating an existing project to the modern toolchain",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 5945
+    },
+    {
+      "topic": "pep723",
+      "file": "skills/modern-python/references/pep723-scripts.md",
+      "title": "PEP 723 inline script metadata",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 5502
+    },
+    {
+      "topic": "ci-design",
+      "file": "skills/ci-cd-and-automation/SKILL.md",
+      "title": "CI/CD design and quality gates",
+      "upstream": "addyosmani/agent-skills",
+      "bytes": 21905
+    },
+    {
+      "topic": "gh-workflow",
+      "file": "skills/github-actions-templates/SKILL.md",
+      "title": "GitHub Actions workflow templates",
+      "upstream": "wshobson/agents",
+      "bytes": 17892
+    },
+    {
+      "topic": "prek",
+      "file": "skills/modern-python/references/prek.md",
+      "title": "Pre-commit hooks with prek",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 12850
+    },
+    {
+      "topic": "security",
+      "file": "skills/modern-python/references/security-setup.md",
+      "title": "Security hooks and dependency scanning",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 11184
+    },
+    {
+      "topic": "dependabot",
+      "file": "skills/modern-python/references/dependabot.md",
+      "title": "Automated dependency updates with Dependabot",
+      "upstream": "trailofbits/skills (modern-python)",
+      "bytes": 2302
+    },
+    {
+      "topic": "ci-container",
+      "file": "skills/ci-container-validation/SKILL.md",
+      "title": "Container validation in CI",
+      "upstream": "written for Gatekeeper (distilled from the 周十七 course)",
+      "bytes": 7919
+    },
+    {
+      "topic": "ci-pipeline",
+      "file": "skills/ci-pipeline-shape/SKILL.md",
+      "title": "Pipeline shape: one job or many",
+      "upstream": "written for Gatekeeper (distilled from the 周十七 course)",
+      "bytes": 7021
+    },
+    {
+      "topic": "ci-release",
+      "file": "skills/ci-release/SKILL.md",
+      "title": "Releasing from CI",
+      "upstream": "written for Gatekeeper (distilled from the 周十七 course)",
+      "bytes": 5799
+    },
+    {
+      "topic": "ci-deploy",
+      "file": "skills/ci-deploy/SKILL.md",
+      "title": "Deploying from CI",
+      "upstream": "written for Gatekeeper (distilled from the 周十七 course)",
+      "bytes": 4989
+    }
+  ],
+  "panel": {
+    "root": "E:\\projects\\demo",
+    "gitHooks": {
+      "installed": false,
+      "pointsToPrek": false
+    },
+    "applyTargets": [
+      {
+        "id": "pyproject",
+        "path": "pyproject.toml",
+        "present": true
+      },
+      {
+        "id": "prek",
+        "path": ".pre-commit-config.yaml",
+        "present": true
+      },
+      {
+        "id": "dependabot",
+        "path": ".github/dependabot.yml",
+        "present": true
+      },
+      {
+        "id": "workflow",
+        "path": ".github/workflows",
+        "present": true
+      },
+      {
+        "id": "ci-script",
+        "path": "scripts/ci.py",
+        "present": true
+      },
+      {
+        "id": "manifest",
+        "path": "release/agent_versions.json",
+        "present": false
+      },
+      {
+        "id": "validator",
+        "path": "scripts/validate_version_manifest.py",
+        "present": false
+      },
+      {
+        "id": "secret-scan",
+        "path": "scripts/secret_scan.py",
+        "present": true
+      },
+      {
+        "id": "container-report",
+        "path": "scripts/container_report.py",
+        "present": false
+      }
+    ],
+    "stages": [
+      {
+        "id": "lock",
+        "title": "Lock check",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv lock --check"
+        ]
+      },
+      {
+        "id": "sync",
+        "title": "Sync",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv sync --locked --all-groups"
+        ]
+      },
+      {
+        "id": "lint",
+        "title": "Lint",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked ruff check .",
+          "uv run --locked ruff format --check ."
+        ]
+      },
+      {
+        "id": "type",
+        "title": "Type check",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked mypy src"
+        ]
+      },
+      {
+        "id": "manifest",
+        "title": "Version manifest",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked python scripts/validate_version_manifest.py"
+        ]
+      },
+      {
+        "id": "test",
+        "title": "Test",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked pytest --cov --cov-report=term-missing"
+        ]
+      },
+      {
+        "id": "security",
+        "title": "Secret scan",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked python scripts/secret_scan.py"
+        ]
+      },
+      {
+        "id": "build",
+        "title": "Build",
+        "defaultIncluded": true,
+        "optional": false,
+        "kind": "gate",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run python -c 'import shutil,sys; shutil.rmtree(sys.argv[1], ignore_errors=True)' dist",
+          "uv build --all-packages --out-dir dist"
+        ]
+      },
+      {
+        "id": "integration",
+        "title": "Integration tests",
+        "defaultIncluded": false,
+        "optional": true,
+        "kind": "delivery",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked pytest -m integration"
+        ]
+      },
+      {
+        "id": "audit",
+        "title": "Dependency audit",
+        "defaultIncluded": false,
+        "optional": true,
+        "kind": "delivery",
+        "verified": true,
+        "job": "quality",
+        "needs": [],
+        "commands": [
+          "uv run --locked --with pip-audit pip-audit"
+        ]
+      },
+      {
+        "id": "container",
+        "title": "Container",
+        "defaultIncluded": false,
+        "optional": true,
+        "kind": "delivery",
+        "verified": true,
+        "job": "container",
+        "needs": [
+          "quality"
+        ],
+        "commands": [
+          "docker compose config --quiet",
+          "docker build --check .",
+          "docker compose build",
+          "docker compose up -d --wait",
+          "docker compose ps -a",
+          "docker compose exec -T api id",
+          "uv run python scripts/container_report.py",
+          "docker compose down",
+          "docker compose down -v"
+        ]
+      },
+      {
+        "id": "release",
+        "title": "Release",
+        "defaultIncluded": false,
+        "optional": true,
+        "kind": "delivery",
+        "verified": true,
+        "job": "release",
+        "needs": [
+          "quality"
+        ],
+        "commands": [
+          "actions/download-artifact@v4",
+          "actions/attest-build-provenance@v2",
+          "anchore/sbom-action@v0",
+          "actions/upload-artifact@v4",
+          "pypa/gh-action-pypi-publish@release/v1",
+          "docker/login-action@v3",
+          "docker/build-push-action@v6",
+          "gh release create ${{ github.ref_name }} dist/* --generate-notes --verify-tag"
+        ]
+      },
+      {
+        "id": "deploy",
+        "title": "Deploy",
+        "defaultIncluded": false,
+        "optional": true,
+        "kind": "delivery",
+        "verified": false,
+        "job": "deploy",
+        "needs": [
+          "release"
+        ],
+        "commands": [
+          "actions/checkout@v4",
+          "gh release view ${{ github.ref_name }} --json tagName,assets",
+          "echo \"::error::部署命令未配置：把本步替换成你的部署命令\"; exit 1",
+          "curl -fsS --retry 5 --retry-delay 3 ${{ vars.DEPLOY_HEALTH_URL }}"
+        ]
+      }
+    ],
+    "jobs": [
+      {
+        "name": "quality",
+        "needs": [],
+        "stages": [
+          {
+            "id": "lock",
+            "title": "Lock check"
+          },
+          {
+            "id": "sync",
+            "title": "Sync"
+          },
+          {
+            "id": "lint",
+            "title": "Lint"
+          },
+          {
+            "id": "type",
+            "title": "Type check"
+          },
+          {
+            "id": "manifest",
+            "title": "Version manifest"
+          },
+          {
+            "id": "test",
+            "title": "Test"
+          },
+          {
+            "id": "security",
+            "title": "Secret scan"
+          },
+          {
+            "id": "build",
+            "title": "Build"
+          },
+          {
+            "id": "integration",
+            "title": "Integration tests"
+          },
+          {
+            "id": "audit",
+            "title": "Dependency audit"
+          }
+        ]
+      },
+      {
+        "name": "container",
+        "needs": [
+          "quality"
+        ],
+        "stages": [
+          {
+            "id": "container",
+            "title": "Container"
+          }
+        ]
+      },
+      {
+        "name": "release",
+        "needs": [
+          "quality"
+        ],
+        "stages": [
+          {
+            "id": "release",
+            "title": "Release"
+          }
+        ]
+      },
+      {
+        "name": "deploy",
+        "needs": [
+          "release"
+        ],
+        "stages": [
+          {
+            "id": "deploy",
+            "title": "Deploy"
+          }
+        ]
+      }
+    ],
+    "defaultStages": [
+      "lock",
+      "sync",
+      "lint",
+      "type",
+      "manifest",
+      "test",
+      "security",
+      "build"
+    ],
+    "optionalStages": [
+      "integration",
+      "audit",
+      "container",
+      "release",
+      "deploy"
+    ],
+    "resolve": {
+      "pythonVersion": {
+        "value": "3.13",
+        "source": "existing"
+      },
+      "requiresPython": {
+        "value": ">=3.13,<3.14",
+        "source": "existing"
+      },
+      "testPaths": {
+        "value": [
+          "src/tests"
+        ],
+        "source": "existing"
+      },
+      "coverageFloor": {
+        "value": 90,
+        "source": "existing"
+      },
+      "ruffLineLength": {
+        "value": 100,
+        "source": "existing"
+      },
+      "ruffSelect": {
+        "value": [
+          "E",
+          "F",
+          "I",
+          "B",
+          "UP"
+        ],
+        "source": "existing"
+      },
+      "ruffIgnore": {
+        "value": [],
+        "source": "default"
+      },
+      "typeChecker": {
+        "value": "mypy",
+        "source": "existing"
+      },
+      "typePaths": {
+        "value": [
+          "src"
+        ],
+        "source": "detected"
+      },
+      "buildMode": {
+        "value": "package",
+        "source": "default"
+      },
+      "workspaceMembers": {
+        "value": [],
+        "source": "default"
+      },
+      "manifestComponents": {
+        "value": [],
+        "source": "detected"
+      },
+      "manifestPath": {
+        "value": "release/agent_versions.json",
+        "source": "default"
+      },
+      "validatorPath": {
+        "value": "scripts/validate_version_manifest.py",
+        "source": "default"
+      },
+      "secretBaseline": {
+        "value": true,
+        "source": "existing"
+      },
+      "secretHelperPath": {
+        "value": "scripts/secret_scan.py",
+        "source": "existing"
+      },
+      "containerReportPath": {
+        "value": "scripts/container_report.py",
+        "source": "default"
+      },
+      "imageMaxSizeMb": {
+        "value": null,
+        "source": "default"
+      }
+    },
+    "resolveLines": [
+      "python.version=3.13 (existing)",
+      "project.requires-python=>=3.13,<3.14 (existing)",
+      "pytest.testpaths=[src/tests] (existing)",
+      "coverage.fail_under=90 (existing)",
+      "ruff.line-length=100 (existing)",
+      "ruff.lint.select=[E, F, I, B, UP] (existing)",
+      "ruff.lint.ignore=[] (default)",
+      "type.checker=mypy (existing)",
+      "type.paths=[src] (detected)",
+      "build.mode=package (default)",
+      "workspace.members=[] (default)",
+      "manifest.components=[] (detected)",
+      "manifest.path=release/agent_versions.json (default)",
+      "manifest.validator=scripts/validate_version_manifest.py (default)",
+      "secrets.baseline=true (existing)",
+      "secrets.helper=scripts/secret_scan.py (existing)",
+      "container.report=scripts/container_report.py (default)",
+      "container.image.max_size_mb=null (default)"
+    ]
+  },
+  "stages": [
+    {
+      "id": "lock",
+      "title": "Lock check",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv lock --check"
+      ]
+    },
+    {
+      "id": "sync",
+      "title": "Sync",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv sync --locked --all-groups"
+      ]
+    },
+    {
+      "id": "lint",
+      "title": "Lint",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked ruff check .",
+        "uv run --locked ruff format --check ."
+      ]
+    },
+    {
+      "id": "type",
+      "title": "Type check",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked mypy src"
+      ]
+    },
+    {
+      "id": "manifest",
+      "title": "Version manifest",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked python scripts/validate_version_manifest.py"
+      ]
+    },
+    {
+      "id": "test",
+      "title": "Test",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked pytest --cov --cov-report=term-missing"
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Secret scan",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked python scripts/secret_scan.py"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Build",
+      "defaultIncluded": true,
+      "optional": false,
+      "kind": "gate",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run python -c 'import shutil,sys; shutil.rmtree(sys.argv[1], ignore_errors=True)' dist",
+        "uv build --all-packages --out-dir dist"
+      ]
+    },
+    {
+      "id": "integration",
+      "title": "Integration tests",
+      "defaultIncluded": false,
+      "optional": true,
+      "kind": "delivery",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked pytest -m integration"
+      ]
+    },
+    {
+      "id": "audit",
+      "title": "Dependency audit",
+      "defaultIncluded": false,
+      "optional": true,
+      "kind": "delivery",
+      "verified": true,
+      "job": "quality",
+      "needs": [],
+      "commands": [
+        "uv run --locked --with pip-audit pip-audit"
+      ]
+    },
+    {
+      "id": "container",
+      "title": "Container",
+      "defaultIncluded": false,
+      "optional": true,
+      "kind": "delivery",
+      "verified": true,
+      "job": "container",
+      "needs": [
+        "quality"
+      ],
+      "commands": [
+        "docker compose config --quiet",
+        "docker build --check .",
+        "docker compose build",
+        "docker compose up -d --wait",
+        "docker compose ps -a",
+        "docker compose exec -T api id",
+        "uv run python scripts/container_report.py",
+        "docker compose down",
+        "docker compose down -v"
+      ]
+    },
+    {
+      "id": "release",
+      "title": "Release",
+      "defaultIncluded": false,
+      "optional": true,
+      "kind": "delivery",
+      "verified": true,
+      "job": "release",
+      "needs": [
+        "quality"
+      ],
+      "commands": [
+        "actions/download-artifact@v4",
+        "actions/attest-build-provenance@v2",
+        "anchore/sbom-action@v0",
+        "actions/upload-artifact@v4",
+        "pypa/gh-action-pypi-publish@release/v1",
+        "docker/login-action@v3",
+        "docker/build-push-action@v6",
+        "gh release create ${{ github.ref_name }} dist/* --generate-notes --verify-tag"
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": "Deploy",
+      "defaultIncluded": false,
+      "optional": true,
+      "kind": "delivery",
+      "verified": false,
+      "job": "deploy",
+      "needs": [
+        "release"
+      ],
+      "commands": [
+        "actions/checkout@v4",
+        "gh release view ${{ github.ref_name }} --json tagName,assets",
+        "echo \"::error::部署命令未配置：把本步替换成你的部署命令\"; exit 1",
+        "curl -fsS --retry 5 --retry-delay 3 ${{ vars.DEPLOY_HEALTH_URL }}"
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "name": "quality",
+      "needs": [],
+      "stages": [
+        {
+          "id": "lock",
+          "title": "Lock check"
+        },
+        {
+          "id": "sync",
+          "title": "Sync"
+        },
+        {
+          "id": "lint",
+          "title": "Lint"
+        },
+        {
+          "id": "type",
+          "title": "Type check"
+        },
+        {
+          "id": "manifest",
+          "title": "Version manifest"
+        },
+        {
+          "id": "test",
+          "title": "Test"
+        },
+        {
+          "id": "security",
+          "title": "Secret scan"
+        },
+        {
+          "id": "build",
+          "title": "Build"
+        },
+        {
+          "id": "integration",
+          "title": "Integration tests"
+        },
+        {
+          "id": "audit",
+          "title": "Dependency audit"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "needs": [
+        "quality"
+      ],
+      "stages": [
+        {
+          "id": "container",
+          "title": "Container"
+        }
+      ]
+    },
+    {
+      "name": "release",
+      "needs": [
+        "quality"
+      ],
+      "stages": [
+        {
+          "id": "release",
+          "title": "Release"
+        }
+      ]
+    },
+    {
+      "name": "deploy",
+      "needs": [
+        "release"
+      ],
+      "stages": [
+        {
+          "id": "deploy",
+          "title": "Deploy"
+        }
+      ]
+    }
+  ],
+  "applyTargets": [
+    {
+      "id": "pyproject",
+      "path": "pyproject.toml",
+      "present": true
+    },
+    {
+      "id": "prek",
+      "path": ".pre-commit-config.yaml",
+      "present": true
+    },
+    {
+      "id": "dependabot",
+      "path": ".github/dependabot.yml",
+      "present": true
+    },
+    {
+      "id": "workflow",
+      "path": ".github/workflows",
+      "present": true
+    },
+    {
+      "id": "ci-script",
+      "path": "scripts/ci.py",
+      "present": true
+    },
+    {
+      "id": "manifest",
+      "path": "release/agent_versions.json",
+      "present": false
+    },
+    {
+      "id": "validator",
+      "path": "scripts/validate_version_manifest.py",
+      "present": false
+    },
+    {
+      "id": "secret-scan",
+      "path": "scripts/secret_scan.py",
+      "present": true
+    },
+    {
+      "id": "container-report",
+      "path": "scripts/container_report.py",
+      "present": false
+    }
+  ],
+  "gitHooks": {
+    "installed": false,
+    "pointsToPrek": false
+  },
+  "resolved": {
+    "pythonVersion": {
+      "value": "3.13",
+      "source": "existing"
+    },
+    "requiresPython": {
+      "value": ">=3.13,<3.14",
+      "source": "existing"
+    },
+    "testPaths": {
+      "value": [
+        "src/tests"
+      ],
+      "source": "existing"
+    },
+    "coverageFloor": {
+      "value": 90,
+      "source": "existing"
+    },
+    "ruffLineLength": {
+      "value": 100,
+      "source": "existing"
+    },
+    "ruffSelect": {
+      "value": [
+        "E",
+        "F",
+        "I",
+        "B",
+        "UP"
+      ],
+      "source": "existing"
+    },
+    "ruffIgnore": {
+      "value": [],
+      "source": "default"
+    },
+    "typeChecker": {
+      "value": "mypy",
+      "source": "existing"
+    },
+    "typePaths": {
+      "value": [
+        "src"
+      ],
+      "source": "detected"
+    },
+    "buildMode": {
+      "value": "package",
+      "source": "default"
+    },
+    "workspaceMembers": {
+      "value": [],
+      "source": "default"
+    },
+    "manifestComponents": {
+      "value": [],
+      "source": "detected"
+    },
+    "manifestPath": {
+      "value": "release/agent_versions.json",
+      "source": "default"
+    },
+    "validatorPath": {
+      "value": "scripts/validate_version_manifest.py",
+      "source": "default"
+    },
+    "secretBaseline": {
+      "value": true,
+      "source": "existing"
+    },
+    "secretHelperPath": {
+      "value": "scripts/secret_scan.py",
+      "source": "existing"
+    },
+    "containerReportPath": {
+      "value": "scripts/container_report.py",
+      "source": "default"
+    },
+    "imageMaxSizeMb": {
+      "value": null,
+      "source": "default"
+    }
+  },
+  "resolveLines": [
+    "python.version=3.13 (existing)",
+    "project.requires-python=>=3.13,<3.14 (existing)",
+    "pytest.testpaths=[src/tests] (existing)",
+    "coverage.fail_under=90 (existing)",
+    "ruff.line-length=100 (existing)",
+    "ruff.lint.select=[E, F, I, B, UP] (existing)",
+    "ruff.lint.ignore=[] (default)",
+    "type.checker=mypy (existing)",
+    "type.paths=[src] (detected)",
+    "build.mode=package (default)",
+    "workspace.members=[] (default)",
+    "manifest.components=[] (detected)",
+    "manifest.path=release/agent_versions.json (default)",
+    "manifest.validator=scripts/validate_version_manifest.py (default)",
+    "secrets.baseline=true (existing)",
+    "secrets.helper=scripts/secret_scan.py (existing)",
+    "container.report=scripts/container_report.py (default)",
+    "container.image.max_size_mb=null (default)"
+  ],
+  "stageDefaults": {
+    "stages": [
+      "lock",
+      "sync",
+      "lint",
+      "type",
+      "manifest",
+      "test",
+      "security",
+      "build"
+    ],
+    "optional": [
+      "integration",
+      "audit",
+      "container",
+      "release",
+      "deploy"
+    ]
+  },
+  "container": {
+    "reportScript": false,
+    "imageLimit": null
+  },
+  "skills": [
+    {
+      "topic": "uv-basics",
+      "name": "python-uv-basics",
+      "token": "/python-uv-basics",
+      "title": "uv — the basics"
+    },
+    {
+      "topic": "uv-commands",
+      "name": "python-uv-commands",
+      "token": "/python-uv-commands",
+      "title": "uv commands"
+    },
+    {
+      "topic": "pyproject",
+      "name": "python-pyproject",
+      "token": "/python-pyproject",
+      "title": "pyproject.toml configuration"
+    },
+    {
+      "topic": "ruff-config",
+      "name": "python-ruff-config",
+      "token": "/python-ruff-config",
+      "title": "Ruff configuration"
+    },
+    {
+      "topic": "testing",
+      "name": "python-testing",
+      "token": "/python-testing",
+      "title": "Testing with pytest"
+    },
+    {
+      "topic": "migration",
+      "name": "python-migration",
+      "token": "/python-migration",
+      "title": "Migrating an existing project to the modern toolchain"
+    },
+    {
+      "topic": "pep723",
+      "name": "python-pep723",
+      "token": "/python-pep723",
+      "title": "PEP 723 inline script metadata"
+    },
+    {
+      "topic": "ci-design",
+      "name": "python-ci-design",
+      "token": "/python-ci-design",
+      "title": "CI/CD design and quality gates"
+    },
+    {
+      "topic": "gh-workflow",
+      "name": "python-gh-workflow",
+      "token": "/python-gh-workflow",
+      "title": "GitHub Actions workflow templates"
+    },
+    {
+      "topic": "prek",
+      "name": "python-prek",
+      "token": "/python-prek",
+      "title": "Pre-commit hooks with prek"
+    },
+    {
+      "topic": "security",
+      "name": "python-security",
+      "token": "/python-security",
+      "title": "Security hooks and dependency scanning"
+    },
+    {
+      "topic": "dependabot",
+      "name": "python-dependabot",
+      "token": "/python-dependabot",
+      "title": "Automated dependency updates with Dependabot"
+    },
+    {
+      "topic": "ci-container",
+      "name": "python-ci-container",
+      "token": "/python-ci-container",
+      "title": "Container validation in CI"
+    },
+    {
+      "topic": "ci-pipeline",
+      "name": "python-ci-pipeline",
+      "token": "/python-ci-pipeline",
+      "title": "Pipeline shape: one job or many"
+    },
+    {
+      "topic": "ci-release",
+      "name": "python-ci-release",
+      "token": "/python-ci-release",
+      "title": "Releasing from CI"
+    },
+    {
+      "topic": "ci-deploy",
+      "name": "python-ci-deploy",
+      "token": "/python-ci-deploy",
+      "title": "Deploying from CI"
+    }
+  ],
+  "skillProbe": null,
+  "sessions": [
+    "E:\\projects\\demo"
+  ],
+  "sessionList": [
+    {
+      "id": "session-live",
+      "dir": "E:\\projects\\demo"
+    }
+  ],
+  "requestedSession": "session-live",
+  "sessionMatched": true,
+  "request": {
+    "sessionId": "session-live",
+    "path": null,
+    "probe": false
+  }
+}

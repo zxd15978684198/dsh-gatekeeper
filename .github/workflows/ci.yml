@@ -1,0 +1,36 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22.x', '24.x']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # `py-run` really shells out to uv; the suite skips its uv-dependent cases
+      # when uv is absent, but running them is the point.
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: tool tests
+        run: node test/smoke.mjs
+
+      - name: client tests
+        run: node test/client.mjs
+
+      - name: async executor tests
+        run: node test/exec-async.mjs

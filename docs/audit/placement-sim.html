@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>placement simulation</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { font: 13px system-ui, sans-serif; }
+  /* The host's composer wrapper: a scaled, translated ancestor. This is the thing that
+     makes `position: fixed` stop meaning "the viewport". */
+  #host { position: absolute; left: 40px; top: 300px; width: 900px; height: 260px;
+          transform: scale(0.82) translate(30px, -20px); transform-origin: top left;
+          contain: layout; border: 1px dashed #999; }
+  /* The chip can sit inside a scroller too: its rect then moves with the scroll offset,
+     which is the other way a "fixed" box ends up somewhere the estimate did not expect. */
+  #scrollbox { position: absolute; left: 240px; top: 40px; width: 220px; height: 80px;
+               overflow: auto; border: 1px dotted #bbb; }
+  #chip { position: absolute; left: 20px; top: 120px; height: 26px; padding: 0 10px;
+          border: 1px solid #333; background: #eee; cursor: pointer; white-space: nowrap; }
+  #layer { position: fixed; box-sizing: border-box; width: 316px; z-index: 70; }
+  #panel { position: relative; z-index: 1; box-sizing: border-box; width: 316px;
+           max-height: 380px; overflow-y: auto; padding: 6px; border: 1px solid #333;
+           background: #fff; }
+  .row { height: 28px; padding: 0 6px; line-height: 28px; border-bottom: 1px solid #eee; }
+  #card { position: absolute; z-index: 2; box-sizing: border-box; width: 300px;
+          min-height: 120px; border: 1px solid #333; background: #fff; padding: 8px; }
+</style>
+</head>
+<body>
+<div id="host">
+  <div id="scrollbox"><div id="chip">技能包</div></div>
+  <div id="layer">
+    <div id="panel">
+      <div class="row" data-i="0">python-backend</div>
+      <div class="row" data-i="1">python-testing</div>
+      <div class="row" data-i="2">python-uv-basics</div>
+      <div class="row" data-i="3">python-security</div>
+      <div class="row" data-i="4">python-pep723</div>
+    </div>
+    <div id="card">detail</div>
+  </div>
+</div>
+<script>
+'use strict'
+const PANEL_WIDTH = 316, CARD_WIDTH = 300
+const layer = document.getElementById('layer')
+const panel = document.getElementById('panel')
+const chip = document.getElementById('chip')
+const card = document.getElementById('card')
+
+// --- copied verbatim from client/panel.js -------------------------------------------
+function placementSolve(now, probed, step, target, viewport, panelWidth) {
+  if (now === null || now === undefined) return null
+  if (probed === null || probed === undefined) return null
+  if (target === null || target === undefined) return null
+  if (!(now.width > 0) || !(target.width > 0)) return null
+  const unit = typeof step === 'number' && step > 0 ? step : 8
+  const width = typeof panelWidth === 'number' && panelWidth > 0 ? panelWidth : 316
+  const scale = now.width / width
+  const maxLeft = Math.max(8, viewport.width - width * scale - 8)
+  const wantedLeft = Math.max(8, Math.min(target.left, maxLeft))
+  const wantedBottom = target.top - 6
+  const rateX = (probed.left - now.left) / unit
+  const rateY = (probed.bottom - now.bottom) / unit
+  if (!Number.isFinite(rateX) || !Number.isFinite(rateY)) return null
+  if (Math.abs(rateX) < 1e-3 || Math.abs(rateY) < 1e-3) return null
+  return { dx: (wantedLeft - now.left) / rateX, dy: (wantedBottom - now.bottom) / rateY, rateX, rateY }
+}
+
+// Probe the box the way the component does: nudge the inline offsets, read the rect,
+// put them back.
+function probeSolve(el, target, viewport, panelWidth) {
+  const now = el.getBoundingClientRect()
+  const savedLeft = el.style.left
+  const savedBottom = el.style.bottom
+  const left = parseFloat(savedLeft)
+  const bottom = parseFloat(savedBottom)
+  if (!Number.isFinite(left) || !Number.isFinite(bottom)) return null
+  const step = 8
+  let solved = null
+  try {
+    el.style.left = (left + step) + 'px'
+    el.style.bottom = (bottom + step) + 'px'
+    solved = placementSolve(now, el.getBoundingClientRect(), step, target, viewport, panelWidth)
+  } finally {
+    el.style.left = savedLeft
+    el.style.bottom = savedBottom
+  }
+  return solved
+}
+
+const MIN_CARD_WIDTH = 200
+function detailOffset(row, layerBox, viewport, panelWidth, cardWidth) {
+  if (row === null || row === undefined) return null
+  if (layerBox === null || layerBox === undefined) return null
+  const vw = viewport.width, vh = viewport.height
+  if (!(vw > 0) || !(vh > 0)) return null
+  if (!Number.isFinite(row.top)) return null
+  const panelW = typeof panelWidth === 'number' && panelWidth > 0 ? panelWidth : 316
+  const cardW = typeof cardWidth === 'number' && cardWidth > 0 ? cardWidth : 300
+  const ratio = Number.isFinite(layerBox.scale) && layerBox.scale > 0 ? layerBox.scale : 1
+  const scale = ratio > 0.05 && ratio < 20 ? ratio : 1
+  const left = Number.isFinite(layerBox.left) ? layerBox.left : null
+  const top = Number.isFinite(layerBox.top) ? layerBox.top : null
+  const gap = 10
+  const anchorLeft = left === null ? 8 : left
+  const roomLeft = Math.max(0, anchorLeft - 8 - gap)
+  const roomRight = Math.max(0, vw - (anchorLeft + panelW) - 8 - gap)
+  const onLeft = roomLeft > roomRight
+  const room = onLeft ? roomLeft : roomRight
+  const width = room >= MIN_CARD_WIDTH ? Math.min(cardW, room) : Math.min(cardW, Math.max(0, vw - 16))
+  const wanted = onLeft ? anchorLeft - width - gap : anchorLeft + panelW + gap
+  const cardLeft = Math.max(8, Math.min(wanted, vw - width - 8))
+  const height = Number.isFinite(row.height) && row.height > 0 ? row.height : 28
+  const cardTop = Math.max(8, Math.min(row.top + height / 2 - 92, vh - 210))
+  return {
+    side: onLeft ? 'left' : 'right',
+    width,
+    left: left === null ? (onLeft ? -width - gap : panelW + gap) : (cardLeft - left) / scale,
+    top: top === null ? cardTop - row.top : (cardTop - top) / scale,
+    viewLeft: cardLeft,
+    viewTop: cardTop,
+  }
+}
+// ------------------------------------------------------------------------------------
+
+const mode = (new URLSearchParams(location.search)).get('mode') || 'scaled'
+const host = document.getElementById('host')
+if (mode === 'plain' || mode === 'scroll') {
+  host.style.transform = 'none'
+  host.style.contain = 'none'
+}
+const viewport = { width: window.innerWidth, height: window.innerHeight }
+const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
+
+async function run() {
+  if (mode === 'scroll') {
+    const box = document.getElementById('scrollbox')
+    box.scrollTop = 140
+    await frame()
+  }
+  // 1. open: estimate the layer from the chip, exactly as the component does.
+  const rect = chip.getBoundingClientRect()
+  let anchor = { left: rect.left, bottom: viewport.height - rect.top + 6 }
+  let panelLeft = Math.max(8, Math.min(anchor.left, viewport.width - PANEL_WIDTH - 8))
+  let shift = { dx: 0, dy: 0 }
+  layer.style.left = (panelLeft + shift.dx) + 'px'
+  layer.style.bottom = (anchor.bottom + shift.dy) + 'px'
+  await frame()
+
+  const trace = []
+  // 2. panel correction, bounded to 3 passes.
+  for (let pass = 0; pass < 3; pass += 1) {
+    const solved = probeSolve(layer, chip.getBoundingClientRect(), viewport, PANEL_WIDTH)
+    if (solved === null) break
+    if (Math.abs(solved.dx) < 0.5 && Math.abs(solved.dy) < 0.5) break
+    shift = { dx: shift.dx + solved.dx, dy: shift.dy + solved.dy }
+    layer.style.left = (panelLeft + shift.dx) + 'px'
+    layer.style.bottom = (anchor.bottom + shift.dy) + 'px'
+    await frame()
+    trace.push({ pass: pass + 1, dx: solved.dx, dy: solved.dy, rateX: solved.rateX, rateY: solved.rateY })
+  }
+
+  // 3. hover row 2: estimate the card inside the layer.
+  const rowEl = document.querySelectorAll('.row')[2]
+  const rowRect = rowEl.getBoundingClientRect()
+  const layerBox = panel.getBoundingClientRect()
+  const scale = Math.max(0.05, Math.min(20, layerBox.width / PANEL_WIDTH))
+  const placed = detailOffset(rowRect, { left: layerBox.left, top: layerBox.top, scale }, viewport, PANEL_WIDTH, CARD_WIDTH)
+  let cardShift = { dx: 0, dy: 0 }
+  card.style.width = placed.width + 'px'
+  card.style.left = (placed.left + cardShift.dx) + 'px'
+  card.style.top = (placed.top + cardShift.dy) + 'px'
+  await frame()
+
+  // 4. card correction, same bound.
+  const cardTrace = []
+  for (let pass = 0; pass < 3; pass += 1) {
+    const box = card.getBoundingClientRect()
+    const layerNow = panel.getBoundingClientRect()
+    if (!(box.width > 0) || !(layerNow.width > 0)) break
+    const rowBox = rowEl.getBoundingClientRect()
+    const again = detailOffset(
+      { top: rowBox.top, height: rowBox.height },
+      { left: layerNow.left, top: layerNow.top, scale: layerNow.width / PANEL_WIDTH },
+      viewport,
+      PANEL_WIDTH,
+      CARD_WIDTH,
+    )
+    if (again === null) break
+    const wantedLeft = again.viewLeft
+    const wantedTop = again.viewTop
+    const dx = wantedLeft - box.left
+    const dy = wantedTop - box.top
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) break
+    cardShift = { dx: cardShift.dx + dx / scale, dy: cardShift.dy + dy / scale }
+    card.style.left = (placed.left + cardShift.dx) + 'px'
+    card.style.top = (placed.top + cardShift.dy) + 'px'
+    await frame()
+    cardTrace.push({ pass: pass + 1, dx, dy })
+  }
+
+  const panelBox = panel.getBoundingClientRect()
+  const cardBox = card.getBoundingClientRect()
+  const rowBox = rowEl.getBoundingClientRect()
+  const chipBox = chip.getBoundingClientRect()
+  const inside = cardBox.left >= 0 && cardBox.top >= 0 &&
+    cardBox.right <= viewport.width && cardBox.bottom <= viewport.height
+  const beside = cardBox.right <= panelBox.left + 1 || cardBox.left >= panelBox.right - 1
+  const rowCenter = rowBox.top + rowBox.height / 2
+  const nearRow = cardBox.top <= rowCenter && rowCenter <= cardBox.bottom
+  const aboveChip = panelBox.bottom <= chipBox.top + 1
+
+  window.__result = {
+    mode,
+    viewport,
+    chip: { left: chipBox.left, top: chipBox.top, bottom: chipBox.bottom },
+    panel: { left: panelBox.left, top: panelBox.top, width: panelBox.width, bottom: panelBox.bottom },
+    card: { left: cardBox.left, top: cardBox.top, width: cardBox.width, right: cardBox.right, bottom: cardBox.bottom },
+    row: { top: rowBox.top, height: rowBox.height },
+    scale,
+    panelPasses: trace.length,
+    trace,
+    cardPasses: cardTrace.length,
+    cardTrace,
+    checks: { inside, beside, rowInsideCard: nearRow, aboveChip, panelWidthScaled: Math.abs(panelBox.width - PANEL_WIDTH * scale) < 1 },
+  }
+  document.title = 'done'
+}
+
+run().catch((e) => { window.__result = { error: String(e && e.stack || e) }; document.title = 'done' })
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{
+  "name": "gatekeeper",
+  "version": "0.11.0",
+  "description": "A Python quality gate for DSH: reads a uv project, generates the config a gate needs, and runs the same gate locally and in CI. Three tools — py-audit reads, py-scaffold writes, py-run executes — plus a sidebar panel and a composer chip.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "python",
+    "uv",
+    "ruff",
+    "pytest",
+    "pyproject",
+    "ci",
+    "github-actions",
+    "quality-gate"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "zxd15978684198",
+    "email": "zxd15978684198@163.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxd15978684198/dsh-gatekeeper.git"
+  },
+  "homepage": "https://github.com/zxd15978684198/dsh-gatekeeper#readme",
+  "bugs": {
+    "url": "https://github.com/zxd15978684198/dsh-gatekeeper/issues"
+  },
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client/panel.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./icon": "./icon.svg",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "client",
+    "skills",
+    "locale",
+    "scripts",
+    "test",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh-CN.md"
+  ],
+  "engines": {
+    "node": ">=22.19.0",
+    "dsh": ">=0.2.2-rc.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "test": "node test/smoke.mjs",
+    "sync": "node scripts/sync-skills.mjs",
+    "test:async": "node test/exec-async.mjs",
+    "test:all": "node test/smoke.mjs && node test/client.mjs && node test/exec-async.mjs",
+    "audit": "node scripts/audit/version-audit.mjs",
+    "verify": "node scripts/audit/verify-fixes.mjs",
+    "verify:async": "node scripts/audit/verify-async.mjs"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.2.2-rc.1"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
+    }
+  }
+}

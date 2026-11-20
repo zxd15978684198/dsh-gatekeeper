@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "门禁",
+    "description": "三个工具，按「对项目做什么」划分，而不是按产出哪份文件。py-audit 读：哪个锁文件在管依赖（Poetry / PDM / Pipenv 项目直接拒绝推 uv）、Python 版本及其来源、ruff / mypy / ty / pytest / pre-commit 配了哪些、已有 workflow 的 13 条静态规则结论、九份生成物缺了哪几份、git 提交钩子是否指向 prek、十三道质量闸门（默认八道 + 可选五道）的运行顺序与每个值的来源，另可按 topic 取回十六份内置 skill 原文。py-scaffold 写：默认只预览它生成的九份文件（pyproject 配置表、prek 钩子、Dependabot、拆成四个 job 的十三阶段 Python/uv GitHub Actions workflow、同一套闸门的 scripts/ci.py、版本清单，以及版本校验 / 密钥扫描 / 容器体检三个脚本），只有 dryRun:false 才写这九个固定路径，写前备份。py-run 执行：在本地按流水线顺序跑同一套闸门（--profile commit 走提交前快子集，--from 从某阶段续跑），可选 integration / audit / container 三个阶段，默认只打印计划。面板展示十三阶段矩阵（每阶段在哪个 CI job、needs 等谁）、项目体检（含提交钩子与 6 项只报告的镜像体检）、九份生成物清单，以及每个配置值的来源；输入框上方的「技能包」是一个框里的三行可折叠分组（每个工具一组），共十六个模式，选中即把对应 skill token 写进草稿。"
+  }
+}

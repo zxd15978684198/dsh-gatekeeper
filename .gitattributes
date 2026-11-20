@@ -1,0 +1,12 @@
+# Keep the checkout identical on every platform: this repository is developed on
+# Windows and run on Linux CI, and the generated files it writes into a project
+# (scripts/ci.py, workflows) are compared byte-for-byte by the tests.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
+
+# Fixtures are compared as text, but their .venv is never committed.
+scripts/audit/fixtures/**/.venv/** -text
