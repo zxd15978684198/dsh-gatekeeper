@@ -194,11 +194,30 @@ prek run --all-files
 
 ## 安装
 
-```text
-plugin_manager action=install_bundle target=<本目录绝对路径>
+DSH 插件同时是两件事：装进某个 profile，并且在该 profile 的 `dsh.profile.bundles` 里被点名。下面三种装法的后半段完全一样，只有前半段不同。
+
+**开始之前**：DeepSeek Harness `0.2.2-rc.1` 或更新（清单里声明为 `engines.dsh`）、Node `22.19` 或更新、`uv` 在 `PATH` 上。闸门直接调 `uv`，不认项目自己的虚拟环境，所以插件本身不需要装任何 Python 依赖。
+
+| 场景 | 怎么做 | 结果 |
+| --- | --- | --- |
+| 从本地 checkout 开发 | profile 的 `dependencies` 里写 `"gatekeeper": "link:<本目录绝对路径>"`，再把 `"gatekeeper"` 加进 `dsh.profile.bundles` | 软链接，改源码不用重装 |
+| 从插件市场装 | 安装 `dsh-gatekeeper` | 锁精确版本（npm 源）或锁 commit（GitHub 源） |
+| 从本地目录装 | `plugin_manager action=install_bundle target=<本目录绝对路径>` | 一次调用完成装包 + 登记 bundle |
+
+被改动的文件是 `~/.dsh/profiles/<profile>/package.json`：
+
+```jsonc
+"dependencies": {
+  "gatekeeper": "link:E:/dsh-plugin-creator/gatekeeper"
+},
+"dsh": { "profile": { "bundles": [ "...", "gatekeeper" ] } }
 ```
 
-bundle 会加进 `dsh.profile.bundles`，它的 patch 插入插件行；`GET /gatekeeper/status` 返回 200 就是 Host 半侧已就绪的证据。客户端半侧（面板 + 胶囊）需要刷新一次页面。
+**装载时发生了什么。** loader 逐个读 `dsh.profile.bundles`，找到每个包，应用它 `dsh.bundle.patch` 指向的那个 patch —— 这里是 `cordis.patch.yml`，全文只有 `insert: [{ id: gatekeeper, name: './index.js' }]`。相对 `name` 会被锚定到 patch 文件所在目录。这一行装载 Host 半侧：三个工具、十六个 skill、`/gatekeeper/status` 与 `/gatekeeper/preview` 两个路由，以及面板开关写入的那份 Config schema。客户端半侧走另一条路，由 `exports["./client"]` 与 `dsh.client` 声明 —— Host 按 `GET /plugins/??gatekeeper/client.js&rev=<内容哈希>` 从磁盘直接送出。
+
+**两条生效规则。** Host 半侧（`index.js`、`lib/**`、`package.json`）在启动时读取：改完必须重启宿主。`GET /gatekeeper/status` 返回 200 就是它活着的证据 —— 返回 404 说明它根本没被加载，那是安装问题，不是代码问题。客户端半侧（`client/**`）带哈希从磁盘送出，刷新一次页面即可。
+
+**如果什么都没加载、也没报错**，先看 `dsh.profile.bundles`。这个数组会被别的插件安装过程整体重写，本插件就被这样静默挤掉过一次：`dependencies` 里的条目还在，bundles 里那一行没了，宿主从此不再提它。把那一行加回去，再重启。
 
 ## 配置
 

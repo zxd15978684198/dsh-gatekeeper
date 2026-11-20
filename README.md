@@ -283,13 +283,51 @@ installed.
 
 ## Install
 
-```text
-plugin_manager action=install_bundle target=<absolute path to this directory>
+A DSH plugin is a Cordis package that has to be two things at once: installed
+into a profile, and named in that profile's `dsh.profile.bundles`. Every route
+below ends in those same two steps — only the first half differs.
+
+**Before you start:** DeepSeek Harness `0.2.2-rc.1` or newer (declared as
+`engines.dsh`), Node `22.19` or newer, and `uv` on `PATH`. The gate runs `uv`
+itself and never a project-specific virtualenv, so the plugin needs no Python
+dependencies of its own.
+
+| Situation | How | What happens |
+| --- | --- | --- |
+| From a checkout, while developing | put `"gatekeeper": "link:<absolute path to this directory>"` in the profile's `dependencies`, then add `"gatekeeper"` to `dsh.profile.bundles` | it is symlinked, so editing the source needs no reinstall |
+| From the plugin marketplace | install `dsh-gatekeeper` | pins an exact version (npm source) or a commit (GitHub source) |
+| From a local directory | `plugin_manager action=install_bundle target=<absolute path to this directory>` | installs the package and registers the bundle in one call |
+
+The file that changes is `~/.dsh/profiles/<profile>/package.json`:
+
+```jsonc
+"dependencies": {
+  "gatekeeper": "link:E:/dsh-plugin-creator/gatekeeper"
+},
+"dsh": { "profile": { "bundles": [ "...", "gatekeeper" ] } }
 ```
 
-The bundle is added to `dsh.profile.bundles` and its patch inserts the plugin row;
-`GET /gatekeeper/status` returning 200 is the proof the Host half is live. The
-client half (panel + chip) needs one page reload.
+**What loading does with that.** The loader walks `dsh.profile.bundles`, finds
+each package, and applies the patch its `dsh.bundle.patch` points at — here
+`cordis.patch.yml`, whose whole body is `insert: [{ id: gatekeeper, name:
+'./index.js' }]`. The relative `name` is anchored to the directory the patch file
+lives in. That row loads the Host half: three tools, sixteen skills, the
+`/gatekeeper/status` and `/gatekeeper/preview` routes, and the config schema the
+panel's toggles write to. The client half travels separately, declared by
+`exports["./client"]` and `dsh.client` — the Host serves it from disk at
+`GET /plugins/??gatekeeper/client.js&rev=<content hash>`.
+
+**Two activation rules.** The Host half (`index.js`, `lib/**`, `package.json`)
+is read at startup: change it and restart the host. `GET /gatekeeper/status`
+returning 200 is the proof it is live — 404 means it never loaded, which is an
+install problem, not a code problem. The client half (`client/**`) is served
+from disk with a hash in the URL, so a page reload is enough.
+
+**If nothing loads and nothing errors,** look at `dsh.profile.bundles` first.
+That array is rewritten wholesale by other plugins' installs, and this plugin has
+been silently dropped from it exactly that way: the `dependencies` entry survives,
+the bundle row disappears, and the Host never mentions it again. Re-add the row
+and restart.
 
 ## Configuration
 
