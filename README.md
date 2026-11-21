@@ -345,6 +345,20 @@ restart:
 | `includeSecurityGate` | on | whether the security stage (secret scan, baseline wiring) is part of the generated result |
 | `includeIntegrationGate` | off | whether `integration` enters CI |
 
+**These keys are the panel.** The schema the Host registers is what the panel's
+toggles read and write — there is no second settings file to keep in sync. Every
+field is marked `.volatile()`, and that is what makes an edit take effect without
+a restart: the loader commits the new values first, then emits
+`loader/volatile-update`, and the plugin re-reads its configuration from that
+signal. A wrong value is therefore one toggle away from being right again, and
+nothing has to be persisted to be undone.
+
+**Precedence, and one trap.** A row the loader has validated always carries every
+key, filled with its schema default. So the environment variables below only win
+where the row genuinely lacks the key — they are not an override of a value the
+panel set. That is deliberate: an environment variable silently beating a visible
+toggle is the kind of thing that costs an afternoon to find.
+
 Two environment variables override the two version settings, and one turns the
 integration stage on; their names still carry the pre-rename `DSH_` prefix, which
 the code keeps unchanged.
